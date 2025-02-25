@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.google.hilt)
+    implementation(libs.androidx.junit.ktx)
     ksp(libs.hilt.compiler)
     ksp(libs.room)
 
@@ -76,6 +77,8 @@ dependencies {
     implementation(libs.retrofit.convertor)
 
     implementation(libs.http.logger)
+    implementation(libs.androidx.animation)
+    implementation(libs.androidx.foundation)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

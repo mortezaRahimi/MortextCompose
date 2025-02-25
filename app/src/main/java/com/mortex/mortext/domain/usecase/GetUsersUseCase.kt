@@ -28,7 +28,7 @@ class GetUsersUseCase @Inject constructor(private val impl: RepositoryImpl) {
             emit(UiState.Error(message = e.message.toString()))
         }
 
-    }.flowOn(Dispatchers.Default)
+    }.flowOn(Dispatchers.IO)
 
     operator fun invoke(): Flow<UiState<List<User>>> = flow {
         emit(UiState.Loading())
@@ -37,5 +37,5 @@ class GetUsersUseCase @Inject constructor(private val impl: RepositoryImpl) {
         } catch (e: Exception) {
             emit(UiState.Error(message = e.message.toString()))
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.Default)
 }

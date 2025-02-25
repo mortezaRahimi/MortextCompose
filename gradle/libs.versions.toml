@@ -6,9 +6,9 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.04.01"
-navigation = "2.7.1"
+activityCompose = "1.10.0"
+composeBom = "2025.02.00"
+navigation = "2.8.7"
 hilt = "2.53.1"
 ksp = "2.1.0-1.0.29"
 androidxHiltNavigationCompose = "1.2.0"
@@ -17,6 +17,10 @@ coil = "2.6.0"
 retrofit = "2.9.0"
 httpLogger = "4.12.0"
 room = "2.6.1"
+junitKtx = "1.2.1"
+animationCompose = "1.7.8"
+foundationCompose = "1.7.8"
+uiCompose = "1.7.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,7 +30,6 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -44,6 +47,11 @@ retrofit-convertor = {group = "com.squareup.retrofit2" , name = "converter-gson"
 http-logger = {group = "com.squareup.okhttp3" , name ="logging-interceptor" , version.ref = "httpLogger"}
 room =  {group = "androidx.room" , name ="room-compiler", version.ref = "room"}
 room-ktx =  {group = "androidx.room" , name ="room-ktx", version.ref = "room"}
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "uiCompose" }
+androidx-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animationCompose" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundationCompose" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

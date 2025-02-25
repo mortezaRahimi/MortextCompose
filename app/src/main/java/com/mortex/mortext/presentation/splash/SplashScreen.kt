@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SplashScreen(modifier: Modifier,
+fun SplashScreen(modifier: Modifier = Modifier,
                  paddingValues: PaddingValues,
                  nextScreen: ()->Unit) {
     Box(modifier = modifier.fillMaxSize()

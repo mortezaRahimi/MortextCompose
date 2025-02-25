@@ -11,7 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
+
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +24,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client:OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com")
             .client(client)
@@ -51,22 +51,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRepoImpl(userService: UserService,userDao: UserDao): RepositoryImpl {
-        return RepositoryImpl(userService,userDao)
+    fun provideRepoImpl(userService: UserService, userDao: UserDao): RepositoryImpl {
+        return RepositoryImpl(userService, userDao)
     }
 
     @Singleton
     @Provides
-    fun provideYourDatabase(
+    fun provideDataBase(
         @ApplicationContext app: Context
     ) = Room.databaseBuilder(
         app,
         UserDataBase::class.java,
         "user_db"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Singleton
     @Provides
-    fun provideYourDao(db: UserDataBase) = db.userDao()
+    fun provideDao(db: UserDataBase) = db.userDao()
 
 }
