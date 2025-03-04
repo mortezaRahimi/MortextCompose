@@ -16,9 +16,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mortex.mortext.presentation.detail.DetailScreen
+import com.mortex.mortext.presentation.event.UiEvent
 import com.mortex.mortext.presentation.login.LoginScreen
 import com.mortex.mortext.presentation.main.MainScreen
 import com.mortex.mortext.presentation.main.MainViewModel
+import com.mortex.mortext.presentation.main.event.MainEvent
 import com.mortex.mortext.presentation.nav.NavRoute
 import com.mortex.mortext.presentation.splash.SplashScreen
 import com.mortex.mortext.ui.theme.MortextComposeTheme
@@ -45,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     SharedTransitionLayout {
 
                         val navController = rememberNavController()
-                        val viewModel :MainViewModel = hiltViewModel()
+                        val viewModel: MainViewModel = hiltViewModel()
 
                         NavHost(navController, startDestination = "Splash") {
 
@@ -83,7 +85,7 @@ class MainActivity : ComponentActivity() {
                                     this@composable,
                                     id = id!!,
                                     viewModel = viewModel,
-                                    onBackPressed = { navController.navigateUp() }
+                                    onBackPressed = { viewModel.onEvent(MainEvent.ShowToast(id.toString())) }
                                 )
 
                             }

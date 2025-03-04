@@ -4,12 +4,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
@@ -31,6 +37,39 @@ class ExampleUnitTest {
         assertEquals(2, solutionPoli("aaaagbc"))
     }
 
+    @Test
+    fun `check flow`() {
+        assertEquals(3, checkFlow())
+    }
+
+    fun checkFlow() {
+        val m = flowOf(1, 2, 3)
+        val s = flowOf("a", "n")
+
+        runBlocking {
+
+            m.combine(s) { num, char -> "$num to $char" }.collect {
+                println(it)
+            }
+//
+//            m.zip(s) { num, char -> "$num to $char" }.collect {
+//                println(it)
+//            }
+//
+//            val myFlow = flow {
+//                for (i in 1..3) {
+//                    emit(i)
+//                    println("Emitting $i")
+//                }
+//            }
+//
+//            myFlow.collect { value ->
+////                delay(1000)
+//                println("Collected $value")
+//            }
+        }
+
+    }
 
     fun solutionPoli(S: String): Int {
         // Create a HashMap to count the frequency of each character
@@ -78,7 +117,7 @@ class ExampleUnitTest {
 
         // ساخت پالیندروم‌ها
         first@ for (i in 0..25) {
-           whi@ while (charCount[i] >= 2) {
+            whi@ while (charCount[i] >= 2) {
                 sec@ for (j in 0..25) {
                     if (charCount[j] > 0 && j != i) {
                         palindromes++
@@ -114,38 +153,38 @@ class ExampleUnitTest {
     }
 
     fun solution(K: Int, A: IntArray): Int {
-            val n = A.size
-            var count = 0
-            var left = 0
+        val n = A.size
+        var count = 0
+        var left = 0
 
-            val minDeque = ArrayDeque<Int>() // Deque to maintain indices of minimum values
-            val maxDeque = ArrayDeque<Int>() // Deque to maintain indices of maximum values
+        val minDeque = ArrayDeque<Int>() // Deque to maintain indices of minimum values
+        val maxDeque = ArrayDeque<Int>() // Deque to maintain indices of maximum values
 
 
-            for (right in 0 until n) {
-                // Maintain the minDeque: remove elements from the back while the current element is smaller
-                while (minDeque.isNotEmpty() && A[minDeque.last()] >= A[right]) {
-                    minDeque.removeLast()
-                }
-                minDeque.addLast(right)
-
-                // Maintain the maxDeque: remove elements from the back while the current element is larger
-                while (maxDeque.isNotEmpty() && A[maxDeque.last()] <= A[right]) {
-                    maxDeque.removeLast()
-                }
-                maxDeque.addLast(right)
-
-                // Adjust the left pointer to maintain the bounded slice condition
-                while (A[maxDeque.first()] - A[minDeque.first()] > K) {
-                    if (minDeque.first() == left) minDeque.removeFirst()
-                    if (maxDeque.first() == left) maxDeque.removeFirst()
-                    left++
-                }
-
-                // Add the number of slices ending at `right`
-                count += right - left + 1
-                if (count > 1_000_000_000) return 1_000_000_000 // Return the limit if exceeded
+        for (right in 0 until n) {
+            // Maintain the minDeque: remove elements from the back while the current element is smaller
+            while (minDeque.isNotEmpty() && A[minDeque.last()] >= A[right]) {
+                minDeque.removeLast()
             }
+            minDeque.addLast(right)
+
+            // Maintain the maxDeque: remove elements from the back while the current element is larger
+            while (maxDeque.isNotEmpty() && A[maxDeque.last()] <= A[right]) {
+                maxDeque.removeLast()
+            }
+            maxDeque.addLast(right)
+
+            // Adjust the left pointer to maintain the bounded slice condition
+            while (A[maxDeque.first()] - A[minDeque.first()] > K) {
+                if (minDeque.first() == left) minDeque.removeFirst()
+                if (maxDeque.first() == left) maxDeque.removeFirst()
+                left++
+            }
+
+            // Add the number of slices ending at `right`
+            count += right - left + 1
+            if (count > 1_000_000_000) return 1_000_000_000 // Return the limit if exceeded
+        }
 
 
         return count
@@ -816,6 +855,19 @@ class ExampleUnitTest {
 
         println("Standard Price = ${calcDiscount(stPrice, price)}")
         println("Vip Price = ${calcDiscount(vipPrice, price)}")
+
+
+        val m = Mik.check()
     }
 
+
+}
+
+class Mik {
+
+    companion object {
+        fun check() {
+
+        }
+    }
 }

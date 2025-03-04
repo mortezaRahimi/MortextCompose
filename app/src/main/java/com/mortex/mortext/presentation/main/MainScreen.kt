@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -15,20 +16,26 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import com.mortex.mortext.presentation.event.UiEvent
 import com.mortex.mortext.presentation.main.components.UserItem
 import com.mortex.mortext.presentation.main.event.MainEvent
 import com.mortex.mortext.ui.theme.Purple40
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -46,14 +53,17 @@ fun MainScreen(
     var state = viewModel.usersState
     val uriHandler = LocalUriHandler.current
 
-    LaunchedEffect(true) {
+    LaunchedEffect(viewModel.uiEvent) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 UiEvent.Loading -> {
 //                        viewModel.onEvent(MainEvent.Loading(true))
                 }
 
-                UiEvent.LogOut -> {}
+                UiEvent.LogOut -> {
+
+                }
+
                 is UiEvent.ShowToast -> {
 
                 }
@@ -94,4 +104,10 @@ fun MainScreen(
             }
         }
     }
+}
+
+
+@Composable
+fun currentTime(): String {
+    return System.currentTimeMillis().toString()
 }

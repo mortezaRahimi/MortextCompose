@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mortex.mortext.presentation.main.currentTime
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), modifier: Modifier = Modifier, nextScreen:()->Unit) {
@@ -33,6 +34,9 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), modifier: Modifier 
         .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
+
+        Text(text = currentTime(),
+            modifier = Modifier.fillMaxWidth())
 
         TextField(modifier = Modifier.fillMaxWidth() ,
             onValueChange = {_value->
